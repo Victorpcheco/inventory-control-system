@@ -1,0 +1,11 @@
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Domain\bin\Debug\net8.0\InventoryControlSystem.Domain.deps.json
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Domain\bin\Debug\net8.0\InventoryControlSystem.Domain.dll
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Domain\bin\Debug\net8.0\InventoryControlSystem.Domain.pdb
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Domain\obj\Debug\net8.0\InventoryControlSystem.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Domain\obj\Debug\net8.0\InventoryControlSystem.Domain.AssemblyInfoInputs.cache
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Domain\obj\Debug\net8.0\InventoryControlSystem.Domain.AssemblyInfo.cs
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Domain\obj\Debug\net8.0\InventoryControlSystem.Domain.csproj.CoreCompileInputs.cache
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Domain\obj\Debug\net8.0\InventoryControlSystem.Domain.dll
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Domain\obj\Debug\net8.0\refint\InventoryControlSystem.Domain.dll
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Domain\obj\Debug\net8.0\InventoryControlSystem.Domain.pdb
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Domain\obj\Debug\net8.0\ref\InventoryControlSystem.Domain.dll

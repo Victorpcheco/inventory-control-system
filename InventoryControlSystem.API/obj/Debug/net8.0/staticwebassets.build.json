@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "WmJ0KstqxWawNaj/y5fES1eW6ZI5/h6cqlKrXqeJsT4=",
+  "Source": "InventoryControlSystem.API",
+  "BasePath": "_content/InventoryControlSystem.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

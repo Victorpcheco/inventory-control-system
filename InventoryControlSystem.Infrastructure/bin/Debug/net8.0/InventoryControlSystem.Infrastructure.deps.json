@@ -1,0 +1,56 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "InventoryControlSystem.Infrastructure/1.0.0": {
+        "dependencies": {
+          "InventoryControlSystem.Application": "1.0.0",
+          "InventoryControlSystem.Domain": "1.0.0"
+        },
+        "runtime": {
+          "InventoryControlSystem.Infrastructure.dll": {}
+        }
+      },
+      "InventoryControlSystem.Application/1.0.0": {
+        "dependencies": {
+          "InventoryControlSystem.Domain": "1.0.0"
+        },
+        "runtime": {
+          "InventoryControlSystem.Application.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "InventoryControlSystem.Domain/1.0.0": {
+        "runtime": {
+          "InventoryControlSystem.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "InventoryControlSystem.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "InventoryControlSystem.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "InventoryControlSystem.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

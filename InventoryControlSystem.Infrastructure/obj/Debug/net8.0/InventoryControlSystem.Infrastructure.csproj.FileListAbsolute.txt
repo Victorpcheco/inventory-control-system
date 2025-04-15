@@ -1,0 +1,17 @@
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Infrastructure\bin\Debug\net8.0\InventoryControlSystem.Infrastructure.deps.json
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Infrastructure\bin\Debug\net8.0\InventoryControlSystem.Infrastructure.dll
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Infrastructure\bin\Debug\net8.0\InventoryControlSystem.Infrastructure.pdb
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Infrastructure\bin\Debug\net8.0\InventoryControlSystem.Application.dll
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Infrastructure\bin\Debug\net8.0\InventoryControlSystem.Domain.dll
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Infrastructure\bin\Debug\net8.0\InventoryControlSystem.Application.pdb
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Infrastructure\bin\Debug\net8.0\InventoryControlSystem.Domain.pdb
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Infrastructure\obj\Debug\net8.0\InventoryControlSystem.Infrastructure.csproj.AssemblyReference.cache
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Infrastructure\obj\Debug\net8.0\InventoryControlSystem.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Infrastructure\obj\Debug\net8.0\InventoryControlSystem.Infrastructure.AssemblyInfoInputs.cache
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Infrastructure\obj\Debug\net8.0\InventoryControlSystem.Infrastructure.AssemblyInfo.cs
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Infrastructure\obj\Debug\net8.0\InventoryControlSystem.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Infrastructure\obj\Debug\net8.0\Inventor.1D79783B.Up2Date
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Infrastructure\obj\Debug\net8.0\InventoryControlSystem.Infrastructure.dll
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Infrastructure\obj\Debug\net8.0\refint\InventoryControlSystem.Infrastructure.dll
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Infrastructure\obj\Debug\net8.0\InventoryControlSystem.Infrastructure.pdb
+C:\Projects\Dotnet\InventoryControlSystem\InventoryControlSystem.Infrastructure\obj\Debug\net8.0\ref\InventoryControlSystem.Infrastructure.dll
