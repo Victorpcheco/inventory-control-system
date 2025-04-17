@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CyvvTG2/Chg=",
+  "dgSpecHash": "VZVe3JnbFHE=",
   "success": true,
-  "projectFilePath": "C:\\Projects\\Dotnet\\InventoryControlSystem\\InventoryControlSystem.Domain\\InventoryControlSystem.Domain.csproj",
+  "projectFilePath": "C:\\Projects\\Dotnet\\inventory-control-system\\InventoryControlSystem.Domain\\InventoryControlSystem.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\victo\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",

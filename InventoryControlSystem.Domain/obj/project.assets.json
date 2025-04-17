@@ -153,11 +153,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\Dotnet\\InventoryControlSystem\\InventoryControlSystem.Domain\\InventoryControlSystem.Domain.csproj",
+      "projectUniqueName": "C:\\Projects\\Dotnet\\inventory-control-system\\InventoryControlSystem.Domain\\InventoryControlSystem.Domain.csproj",
       "projectName": "InventoryControlSystem.Domain",
-      "projectPath": "C:\\Projects\\Dotnet\\InventoryControlSystem\\InventoryControlSystem.Domain\\InventoryControlSystem.Domain.csproj",
+      "projectPath": "C:\\Projects\\Dotnet\\inventory-control-system\\InventoryControlSystem.Domain\\InventoryControlSystem.Domain.csproj",
       "packagesPath": "C:\\Users\\victo\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\Dotnet\\InventoryControlSystem\\InventoryControlSystem.Domain\\obj\\",
+      "outputPath": "C:\\Projects\\Dotnet\\inventory-control-system\\InventoryControlSystem.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
