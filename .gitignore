@@ -1,4 +1,8 @@
-.vs
-# Build results
+# Ignore pastas de build
 bin/
 obj/
+**/bin/
+**/obj/
+
+# Ignore arquivos de configuração do Visual Studio
+.vs
