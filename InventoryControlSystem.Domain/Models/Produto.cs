@@ -14,21 +14,23 @@ namespace InventoryControlSystem.Domain.Models
         public Fornecedor Fornecedor { get; set; }
         public DateTime DataCadastroProduto { get; set; } = DateTime.UtcNow;
 
-        public Produto(string nome, int quantidadeEstoque, decimal preco)
+        public Produto() { }
+
+        public Produto(string nome, int quantidadeEmEstoque, decimal preco)
         {
 
 
             if (string.IsNullOrWhiteSpace(nome))
                 throw new ArgumentException("O campo nome não pode ser nulo ou vazio!");
 
-            if (quantidadeEstoque <= 0)
+            if (quantidadeEmEstoque <= 0)
                 throw new ArgumentException("A quantidade em estoque precisa ser superior a 0 para cadastro!");
 
             if (preco <= 0)
                 throw new ArgumentException("O preço precisa ser superior a 0 para cadastro!");
 
             Nome = nome;
-            QuantidadeEmEstoque = quantidadeEstoque;
+            QuantidadeEmEstoque = quantidadeEmEstoque;
             Preco = preco;
             DataCadastroProduto = DateTime.UtcNow;
 
