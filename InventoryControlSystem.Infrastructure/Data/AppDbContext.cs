@@ -15,6 +15,8 @@ namespace InventoryControlSystem.Infrastructure.Data
         public DbSet<Fornecedor> TB_Fornecedores { get; set; }
         public DbSet<Produto> TB_Produtos { get; set; }
         public DbSet<Usuario> TB_Usuarios { get; set; }
+        public DbSet<RefreshTokens> TB_RefreshTokens { get; set; }
+
 
     }
 }
