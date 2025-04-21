@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using InventoryControlSystem.Domain.Models;
+﻿using InventoryControlSystem.Domain.Models;
 
 namespace InventoryControlSystem.Domain.Repositories.Interfaces
 {
@@ -14,6 +9,8 @@ namespace InventoryControlSystem.Domain.Repositories.Interfaces
         Task<bool> MatriculaExisteAsync(string matricula);
         Task AddUsuarioAsync (Usuario usuario);
         Task AddRefreshTokenAsync (RefreshTokens refreshToken);
+
+        Task deleteUserAsync(string matricula);
 
     }
 }

@@ -38,5 +38,16 @@ namespace InventoryControlSystem.Domain.Repositories
             await _context.SaveChangesAsync();
         }
 
+        // Deleta um usuário pelo número da matrícula
+        public async Task deleteUserAsync(string matricula)
+        {
+            var usuario = await _context.TB_Usuarios.FirstOrDefaultAsync(u => u.Matricula == matricula);
+            if (usuario != null)
+            {
+                _context.TB_Usuarios.Remove(usuario);
+                await _context.SaveChangesAsync();
+            }
+        }
+
     }
 }

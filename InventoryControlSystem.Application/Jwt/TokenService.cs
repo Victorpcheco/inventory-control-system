@@ -1,17 +1,19 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using InventoryControlSystem.Domain.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace InventoryControlSystem.Infrastructure.Jwt
+namespace InventoryControlSystem.Application.Jwt
 {
-    public class TokenService
+    public  class TokenService
     {
-
         private readonly string _secretKey;
         private readonly string _issuer;
         private readonly string _audience;
@@ -23,13 +25,13 @@ namespace InventoryControlSystem.Infrastructure.Jwt
             _secretKey = jwtSettings["SecretKey"];
             _issuer = jwtSettings["Issuer"];
             _audience = jwtSettings["Audience"];
-            _tokenexpirationMinutes = int.Parse(jwtSettings["TokenExpirationMinutes"]);
+            _tokenexpirationMinutes = int.Parse(jwtSettings["TokenExpirationInMinutes"]);
         }
 
         public string GenerateJwtToken(Usuario usuario)
 
         {   // busca as informações do usuario no banco de dados 
-            var claims = new List<Claim> 
+            var claims = new List<Claim>
             {
 
                 new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
@@ -71,3 +73,4 @@ namespace InventoryControlSystem.Infrastructure.Jwt
         }
     }
 }
+
