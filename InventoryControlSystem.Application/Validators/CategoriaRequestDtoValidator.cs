@@ -8,10 +8,10 @@ using InventoryControlSystem.Application.DTOS;
 
 namespace InventoryControlSystem.Application.Validators
 {
-    public class CategoriaDtoValidator : AbstractValidator<CategoriaDto>
+    public class CategoriaRequestDtoValidator : AbstractValidator<CategoriaRequestDto>
     {
 
-        public CategoriaDtoValidator()
+        public CategoriaRequestDtoValidator()
         {
             RuleFor(x => x.Nome)
                 .NotEmpty().WithMessage("O nome da categoria é obrigatório.")

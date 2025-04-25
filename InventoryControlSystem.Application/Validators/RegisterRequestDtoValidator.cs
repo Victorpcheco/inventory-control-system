@@ -8,9 +8,9 @@ using InventoryControlSystem.Application.DTOS;
 
 namespace InventoryControlSystem.Application.Validators
 {
-    public class RegisterRequestValidator :AbstractValidator<RegisterRequest>
+    public class RegisterRequestDtoValidator :AbstractValidator<RegisterRequestDto>
     {
-        public RegisterRequestValidator()
+        public RegisterRequestDtoValidator()
         {
             RuleFor(x => x.Nome)
                 .NotEmpty().WithMessage("Nome é obrigatório.");

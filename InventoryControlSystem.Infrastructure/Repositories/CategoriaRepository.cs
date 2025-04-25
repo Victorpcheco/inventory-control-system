@@ -26,16 +26,16 @@ namespace InventoryControlSystem.Infrastructure.Repositories
             return await _context.TB_Categorias.ToListAsync();
         }
 
-        public async Task<Categoria> GetByIdAsync(int id)
+        public async Task<Categoria> GetCategoriaByNome(string nome)
         {
-            return await _context.TB_Categorias.FindAsync(id);
+            return await _context.TB_Categorias
+                .FirstOrDefaultAsync(x => x.Nome == nome);
         }
 
-        public async Task<Categoria> AddAsync(Categoria categoria)
+        public async Task AddAsync(Categoria categoria)
         {
             await _context.TB_Categorias.AddAsync(categoria);
             await _context.SaveChangesAsync();
-            return categoria;
         }
 
         public async Task<Categoria> UpdateAsync(Categoria categoria)
@@ -45,9 +45,9 @@ namespace InventoryControlSystem.Infrastructure.Repositories
             return categoria;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(string nome)
         {
-            var categoria = await GetByIdAsync(id);
+            var categoria = await GetCategoriaByNome(nome);
             if (categoria == null)
                 return false;
             _context.TB_Categorias.Remove(categoria);

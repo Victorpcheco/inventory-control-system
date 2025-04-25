@@ -11,10 +11,10 @@ namespace InventoryControlSystem.Domain.Repositories.Interfaces
     {
 
         Task<IEnumerable<Categoria>> GetAllAsync();
-        Task<Categoria> GetByIdAsync(int id);
-        Task<Categoria> AddAsync(Categoria categoria);
+        Task<Categoria> GetCategoriaByNome(string nome);
+        Task AddAsync(Categoria categoria);
         Task<Categoria> UpdateAsync(Categoria categoria);
-        Task<bool> DeleteAsync(int id);
+        Task<bool> DeleteAsync(string nome);
 
 
     }

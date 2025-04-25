@@ -7,6 +7,7 @@ using InventoryControlSystem.Application.DTOS;
 using InventoryControlSystem.Application.Services.Interfaces;
 using InventoryControlSystem.Domain.Models;
 using InventoryControlSystem.Domain.Repositories.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace InventoryControlSystem.Application.Services
 {
@@ -27,18 +28,37 @@ namespace InventoryControlSystem.Application.Services
         }
 
 
-        public async Task<Categoria> GetByIdAsync(int id)
+        public async Task<Categoria> GetCategoriaByNome(string nome)
         {
-            var categoria = await _repository.GetByIdAsync(id);
+            var categoria = await _repository.GetCategoriaByNome(nome);
 
             if (categoria == null)
                 throw new ArgumentException("Categoria não encontrada");
 
-            return await _repository.GetByIdAsync(id);
+            return await _repository.GetCategoriaByNome(nome);
         }
 
+        public async Task<CategoriaRequestDto> CreateCategoriaAsync(CategoriaRequestDto dto)
+        {
 
+            var categoria = await _repository.GetCategoriaByNome(dto.Nome);
 
+            if (categoria != null)
+                throw new ArgumentException("Categoria já cadastrada");
 
-    }
+            categoria = new Categoria()
+            {
+                Nome = dto.Nome,
+                Descricao = dto.Descricao
+            };
+
+            await _repository.AddAsync(categoria);
+
+            return new CategoriaRequestDto
+            {
+                Nome = categoria.Nome,
+                Descricao = categoria.Descricao
+            };
+        }
+    } 
 }

@@ -8,10 +8,10 @@ using InventoryControlSystem.Application.DTOS;
 
 namespace InventoryControlSystem.Application.Validators
 {
-    public class LoginRequestValidator : AbstractValidator<LoginRequest>
+    public class LoginRequestDtoValidator : AbstractValidator<LoginRequestDto>
     {
 
-        public LoginRequestValidator()
+        public LoginRequestDtoValidator()
         {
             RuleFor(x => x.Matricula)
                .NotEmpty().WithMessage("A matrícula é obrigatória.")

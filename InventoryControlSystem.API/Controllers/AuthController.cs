@@ -19,7 +19,7 @@ namespace InventoryControlSystem.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterRequest dto)
+        public async Task<IActionResult> Register([FromBody] RegisterRequestDto dto)
         {
             var usuario = new Usuario(dto.Nome, dto.Matricula, dto.Senha)
             {
@@ -34,7 +34,7 @@ namespace InventoryControlSystem.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginRequest dto)
+        public async Task<IActionResult> Login(LoginRequestDto dto)
         {
             var (jwtToken, refreshToken) = await _authService.LoginAsync(dto.Matricula, dto.Senha);
 

@@ -1,4 +1,5 @@
-﻿using InventoryControlSystem.Application.Services.Interfaces;
+﻿using InventoryControlSystem.Application.DTOS;
+using InventoryControlSystem.Application.Services.Interfaces;
 using InventoryControlSystem.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,12 +36,12 @@ namespace InventoryControlSystem.API.Controllers
         }
 
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Categoria>> GetCategoriaById(int id)
+        [HttpGet("{nome}")]
+        public async Task<ActionResult<Categoria>> GetCategoriaByNome(string nome)
         {
             try
             {
-                var categoria = await _service.GetByIdAsync(id);
+                var categoria = await _service.GetCategoriaByNome(nome);
                 if (categoria == null)
                 {
                     return NotFound("Categoria não encontrada");
@@ -55,6 +56,29 @@ namespace InventoryControlSystem.API.Controllers
             {
                 return BadRequest("Ocorreu um erro ao buscar a categoria");
             }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<CategoriaRequestDto>> CreateCategoria([FromBody] CategoriaRequestDto dto)
+        {
+            try
+            {
+                if (dto == null)
+                {
+                    return BadRequest("Dados inválidos");
+                }
+                var categoria = await _service.CreateCategoriaAsync(dto);
+                return CreatedAtAction(nameof(GetCategoriaByNome), new { nome = categoria.Nome }, categoria);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Ocorreu um erro ao criar a categoria");
+            }
+
         }
     }
 }

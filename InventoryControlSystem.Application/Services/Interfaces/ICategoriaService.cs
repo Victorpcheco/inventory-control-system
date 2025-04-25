@@ -13,7 +13,8 @@ namespace InventoryControlSystem.Application.Services.Interfaces
 
 
         Task<IEnumerable<Categoria>> GetAllAsync();
-        Task<Categoria> GetByIdAsync(int id);
+        Task<Categoria> GetCategoriaByNome(string nome);
+        Task<CategoriaRequestDto> CreateCategoriaAsync(CategoriaRequestDto dto);
 
 
 
