@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InventoryControlSystem.Domain.Models
+﻿namespace InventoryControlSystem.Domain.Models
 {
     public class Categoria
     {
@@ -12,7 +6,8 @@ namespace InventoryControlSystem.Domain.Models
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Descricao { get; set; }
-        public ICollection<Produto> Produtos { get; set; } // Relação de um para muitos
+
+        //public ICollection<Produto> Produtos { get; set; } // Relação de um para muitos
 
 
         public Categoria(string nome)

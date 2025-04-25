@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace InventoryControlSystem.Domain.Models
 {
     public class Produto
@@ -9,6 +11,7 @@ namespace InventoryControlSystem.Domain.Models
         public int QuantidadeEmEstoque { get; set; }
         public decimal Preco { get; set; }
         public int CategoriaId { get; set; }
+        [ForeignKey("CategoriaId")]
         public Categoria Categoria { get; set; }
         public int FornecedorId { get; set; }
         public Fornecedor Fornecedor { get; set; }

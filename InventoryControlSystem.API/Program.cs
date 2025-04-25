@@ -5,6 +5,7 @@ using InventoryControlSystem.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using InventoryControlSystem.Domain.Repositories;
 using InventoryControlSystem.Application.Jwt;
+using InventoryControlSystem.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddSingleton<TokenService>();
+builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 
 
 builder.Services.AddControllers();

@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DTOS\NovaPasta1\**" />
+    <Compile Remove="DTOS\NovaPasta\**" />
+    <EmbeddedResource Remove="DTOS\NovaPasta1\**" />
+    <EmbeddedResource Remove="DTOS\NovaPasta\**" />
+    <None Remove="DTOS\NovaPasta1\**" />
+    <None Remove="DTOS\NovaPasta\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\InventoryControlSystem.Domain\InventoryControlSystem.Domain.csproj" />
   </ItemGroup>
 
