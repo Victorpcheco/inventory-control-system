@@ -27,6 +27,16 @@ namespace InventoryControlSystem.Application.Services
         }
 
 
+        public async Task<Categoria> GetByIdAsync(int id)
+        {
+            var categoria = await _repository.GetByIdAsync(id);
+
+            if (categoria == null)
+                throw new ArgumentException("Categoria não encontrada");
+
+            return await _repository.GetByIdAsync(id);
+        }
+
 
 
 

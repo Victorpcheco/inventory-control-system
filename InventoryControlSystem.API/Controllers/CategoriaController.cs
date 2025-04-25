@@ -35,12 +35,26 @@ namespace InventoryControlSystem.API.Controllers
         }
 
 
-
-
-
-
-
-
-
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Categoria>> GetCategoriaById(int id)
+        {
+            try
+            {
+                var categoria = await _service.GetByIdAsync(id);
+                if (categoria == null)
+                {
+                    return NotFound("Categoria não encontrada");
+                }
+                return Ok(categoria);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Ocorreu um erro ao buscar a categoria");
+            }
+        }
     }
 }
