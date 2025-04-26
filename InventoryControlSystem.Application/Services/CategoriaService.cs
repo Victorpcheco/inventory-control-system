@@ -60,5 +60,22 @@ namespace InventoryControlSystem.Application.Services
                 Descricao = categoria.Descricao
             };
         }
-    } 
+
+        public async Task<bool> UpdateCategoriaAsync(string nome, CategoriaRequestDto dto)
+        {
+            var categoria = await _repository.GetCategoriaByNome(nome);
+            if (categoria == null)
+                throw new ArgumentException("Categoria não encontrada");
+
+            categoria = new Categoria()
+            {
+                Nome = dto.Nome,
+                Descricao = dto.Descricao
+            };
+
+            await _repository.UpdateAsync(categoria);
+
+            return true;
+        }
+    }
 }

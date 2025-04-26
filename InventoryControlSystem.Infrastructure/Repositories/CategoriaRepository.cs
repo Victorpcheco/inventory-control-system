@@ -38,11 +38,10 @@ namespace InventoryControlSystem.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Categoria> UpdateAsync(Categoria categoria)
+        public async Task UpdateAsync(Categoria categoria)
         {
             _context.TB_Categorias.Update(categoria);
             await _context.SaveChangesAsync();
-            return categoria;
         }
 
         public async Task<bool> DeleteAsync(string nome)
