@@ -80,5 +80,59 @@ namespace InventoryControlSystem.API.Controllers
             }
 
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCategoria(int id, [FromBody] CategoriaRequestDto dto)
+        {
+            try
+            {
+                if (dto == null)
+                {
+                    return BadRequest("Dados inválidos");
+                }
+                var atualizado = await _service.UpdateCategoriaAsync(id, dto); 
+
+                if (!atualizado)
+                {
+                    return NotFound($"Categoria com o ID '{id}' não foi encontrada.");
+                }
+
+                return NoContent();
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Ocorreu um erro ao atualizar a categoria");
+            }
+        }
+
+
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteCategoria (int id)
+        {
+            try
+            {
+                
+                    if (id == null)
+                    {
+                        return BadRequest("Dados inválidos");
+                    }
+                    var categoria = await _service.DeleteCategoriaAsync(id);
+                    return Ok (categoria);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Ocorreu um erro ao criar a categoria");
+            }
+
+        }
     }
 }

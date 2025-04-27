@@ -61,20 +61,28 @@ namespace InventoryControlSystem.Application.Services
             };
         }
 
-        public async Task<bool> UpdateCategoriaAsync(string nome, CategoriaRequestDto dto)
+        public async Task<bool> UpdateCategoriaAsync(int id, CategoriaRequestDto dto)
         {
-            var categoria = await _repository.GetCategoriaByNome(nome);
+            var categoria = await _repository.GetByIdAsync(id);
             if (categoria == null)
                 throw new ArgumentException("Categoria não encontrada");
 
-            categoria = new Categoria()
-            {
-                Nome = dto.Nome,
-                Descricao = dto.Descricao
-            };
+            categoria.Nome = dto.Nome;
+            categoria.Descricao = dto.Descricao;
 
             await _repository.UpdateAsync(categoria);
 
+            return true;
+        }
+
+        public async Task<bool> DeleteCategoriaAsync(int id) 
+        {
+            var categoria = await _repository.GetByIdAsync(id);
+
+            if (categoria == null)
+                throw new ArgumentException("Categoria não cadastrada");
+
+            await _repository.DeleteAsync(id);
             return true;
         }
     }

@@ -44,14 +44,16 @@ namespace InventoryControlSystem.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteAsync(string nome)
+        public async Task DeleteAsync(int id)
         {
-            var categoria = await GetCategoriaByNome(nome);
-            if (categoria == null)
-                return false;
+            var categoria = await _context.TB_Categorias.FindAsync(id);
             _context.TB_Categorias.Remove(categoria);
             await _context.SaveChangesAsync();
-            return true;
+        }
+
+        public async Task<Categoria> GetByIdAsync(int id)
+        {
+            return await _context.TB_Categorias.FindAsync(id);
         }
 
 
