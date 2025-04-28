@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using InventoryControlSystem.Domain.Models;
+﻿using InventoryControlSystem.Domain.Models;
 
 namespace InventoryControlSystem.Domain.Repositories.Interfaces
 {
@@ -11,5 +6,6 @@ namespace InventoryControlSystem.Domain.Repositories.Interfaces
     {
         Task AddAsync(Fornecedor fornecedor);
         Task<Fornecedor> GetByCpfCnpj(string  cpf);
+        Task<IEnumerable<Fornecedor>> GetAllAsync();
     }
 }

@@ -10,5 +10,6 @@ namespace InventoryControlSystem.Application.Services.Interfaces
     public interface IFornecedorService
     {
         Task<Fornecedor> AddFornecedorAsync(Fornecedor fornecedor);
+        Task<IEnumerable<Fornecedor>> GetAllFornecedoresAsync();
     }
 }

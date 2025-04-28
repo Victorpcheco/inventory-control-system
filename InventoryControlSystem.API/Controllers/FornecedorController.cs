@@ -16,7 +16,7 @@ namespace InventoryControlSystem.API.Controllers
             _service = service;
         }
 
-        [HttpPost("createFornecedor")]
+        [HttpPost]
         public async Task<ActionResult<Fornecedor>> CreateFornecedor([FromBody] Fornecedor fornecedor)
         {
             try
@@ -29,6 +29,20 @@ namespace InventoryControlSystem.API.Controllers
                 return BadRequest(ex.Message);
             }
 
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Fornecedor>>> GetAllFornecedores()
+        {
+            try
+            {
+                var fornecedores = await _service.GetAllFornecedoresAsync();
+                return Ok(fornecedores);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

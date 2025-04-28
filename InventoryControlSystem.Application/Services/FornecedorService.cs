@@ -38,5 +38,17 @@ namespace InventoryControlSystem.Application.Services
                 throw new ArgumentNullException("Fornecedor já está cadastrado no sistema!");
             }
         }
+
+        public async Task<IEnumerable<Fornecedor>> GetAllFornecedoresAsync()
+        {
+            var fornecedores = await _repository.GetAllAsync();
+
+            if (fornecedores == null)
+            {
+                throw new ArgumentNullException("Nenhum fornecedor encontrado");
+            }
+
+            return (fornecedores);
+        }
     }
 }
