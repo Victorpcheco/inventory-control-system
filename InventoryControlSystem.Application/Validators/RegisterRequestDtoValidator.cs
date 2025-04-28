@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 using InventoryControlSystem.Application.DTOS;
 
 namespace InventoryControlSystem.Application.Validators
@@ -13,7 +8,7 @@ namespace InventoryControlSystem.Application.Validators
         public RegisterRequestDtoValidator()
         {
             RuleFor(x => x.Nome)
-                .NotEmpty().WithMessage("Nome é obrigatório.");
+                .NotEmpty().WithMessage("O campo nome é obrigatório");
 
             RuleFor(x => x.Matricula)
                 .NotEmpty().WithMessage("Matrícula é obrigatória.")

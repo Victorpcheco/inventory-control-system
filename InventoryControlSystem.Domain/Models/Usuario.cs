@@ -1,36 +1,64 @@
-﻿
-using System.Text.RegularExpressions;
-using InventoryControlSystem.Domain.Enums;
+﻿using InventoryControlSystem.Domain.Enums;
 
 namespace InventoryControlSystem.Domain.Models
 {
     public class Usuario
     {
-        
-        public int Id { get; set; }
-        public string Nome { get; set; }
-        public string Matricula { get; set; }
+        public int Id { get; private set; }
+        public string Nome { get; private set; }
+        public string Matricula { get; private set; }
         public string Senha { get; set; }
-        public TipoUsuario TipoUsuario { get; set; }
-        public DateTime DataCadastro { get; set; } = DateTime.UtcNow;
-
-
+        public TipoUsuario TipoUsuario { get; private set; }
+        public DateTime DataCadastro { get; private set; }
+ 
         public Usuario(string nome, string matricula, string senha)
         {
-            if (string.IsNullOrEmpty(nome))
-                throw new ArgumentException("O campo nome não pode ser nulo ou vazio!");
-
-            if (string.IsNullOrWhiteSpace(matricula) || matricula.Length < 6)
-                throw new ArgumentException("Matrícula deve ter no mínimo 6 caracteres");
-
-            if (!Regex.IsMatch(senha, @"^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$"))
-                throw new ArgumentException("A senha deve conter ao menos 6 caracteres, uma letra maiúscula, um número e um caractere especial");
+            ValidarNome(nome);
+            ValidarMatricula(matricula);
+            ValidarSenha(senha);
 
             Nome = nome;
             Matricula = matricula;
             Senha = senha;
             DataCadastro = DateTime.UtcNow;
+        }
 
+        public static Usuario Criar(string nome, string matricula, string senha)
+        {
+            //ValidarNome(nome);
+            //ValidarMatricula(matricula);
+            //ValidarSenha(senha);
+
+            return new Usuario(nome, matricula,senha);
+        }
+
+        private static void ValidarNome(string nome)
+        {
+            if (string.IsNullOrWhiteSpace(nome))
+                throw new ArgumentException("Nome não pode ser vazio ou nulo.");
+        }
+
+        private static void ValidarMatricula(string matricula)
+        {
+            if (string.IsNullOrWhiteSpace(matricula))
+                throw new ArgumentException("Matrícula não pode ser vazia ou nula.");
+        }
+
+        private static void ValidarSenha(string senha)
+        {
+            if (string.IsNullOrWhiteSpace(senha) || senha.Length < 6)
+                throw new ArgumentException("Senha deve ter pelo menos 6 caracteres.");
+        }
+
+        public void DefinirSenha(string senha)
+        {
+            ValidarSenha(senha);
+            Senha = BCrypt.Net.BCrypt.HashPassword(senha);
+        }
+
+        public void DefinirTipoUsuario(TipoUsuario tipoUsuario)
+        {
+            TipoUsuario = tipoUsuario;
         }
 
     }

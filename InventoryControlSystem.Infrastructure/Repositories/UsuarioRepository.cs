@@ -8,19 +8,17 @@ namespace InventoryControlSystem.Domain.Repositories
     public class UsuarioRepository : IUsuarioRepository
     {
         private readonly AppDbContext _context;
-
         public UsuarioRepository(AppDbContext context)
         {
             _context = context;
         }
-
-        // Busca o usuário pelo número da matrícula e senha
-        public async Task<Usuario> GetByMatriculaAndSenhaAsync(string matricula, string senha)
+        // Busca usuário por matrícula
+        public async Task<Usuario> GetByMatriculaAsync(string matricula)
         {
             return await _context.TB_Usuarios
-                .FirstOrDefaultAsync(u => u.Matricula == matricula && u.Senha == senha);
+                .FirstOrDefaultAsync(u => u.Matricula == matricula);
         }
-        // Verifica se a matrícula já existe
+        // Verifica se o usuário está cadastrado pela matrícula
         public async Task<bool> MatriculaExisteAsync(string matricula)
         {
            return  await _context.TB_Usuarios.AnyAsync(u => u.Matricula == matricula);
@@ -28,17 +26,16 @@ namespace InventoryControlSystem.Domain.Repositories
         // Adiciona um novo usuário
         public async Task AddUsuarioAsync(Usuario usuario)
         {
-            await _context.TB_Usuarios.AddAsync(usuario);
+            _context.TB_Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
         }
-        // Adiciona um novo refresh token
+        // Adiciona o refresh token do usuário logado na tabela
         public async Task AddRefreshTokenAsync(RefreshTokens refreshToken)
         {
             await _context.TB_RefreshTokens.AddAsync(refreshToken);
             await _context.SaveChangesAsync();
         }
-
-        // Deleta um usuário pelo número da matrícula
+        // deleta um usuário.
         public async Task deleteUserAsync(string matricula)
         {
             var usuario = await _context.TB_Usuarios.FirstOrDefaultAsync(u => u.Matricula == matricula);
@@ -48,6 +45,5 @@ namespace InventoryControlSystem.Domain.Repositories
                 await _context.SaveChangesAsync();
             }
         }
-
     }
 }
