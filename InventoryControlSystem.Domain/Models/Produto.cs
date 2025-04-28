@@ -14,6 +14,7 @@ namespace InventoryControlSystem.Domain.Models
         [ForeignKey("CategoriaId")]
         public Categoria Categoria { get; set; }
         public int FornecedorId { get; set; }
+        [ForeignKey("FornecedorId")]
         public Fornecedor Fornecedor { get; set; }
         public DateTime DataCadastroProduto { get; set; } = DateTime.UtcNow;
 

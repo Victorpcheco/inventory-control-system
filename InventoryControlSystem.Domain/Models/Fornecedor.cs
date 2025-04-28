@@ -1,5 +1,7 @@
 ﻿
 
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace InventoryControlSystem.Domain.Models
 {
     public class Fornecedor
@@ -10,9 +12,13 @@ namespace InventoryControlSystem.Domain.Models
         public string CpfCnpj { get; set; }
         public string Telefone { get; set; }    
         public string Email { get; set; }
+        public int EnderecoId { get; set; }
+
+        [ForeignKey("EnderecoId")]
         public Endereco Endereco { get; set; }
-        public int EnderecoId   { get; set; }
-        public ICollection<Produto> Produtos { get; set; }
+        
+
+        //public ICollection<Produto> Produtos { get; set; }
 
         public Fornecedor(string nome, string cpfCnpj, string email)
         {

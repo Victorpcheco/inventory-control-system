@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 
 namespace InventoryControlSystem.Domain.Models
@@ -14,7 +15,7 @@ namespace InventoryControlSystem.Domain.Models
         public string Estado { get; set; }
         public string Cep { get; set; }
         public string Complemento { get; set; }
-        public Fornecedor Fornecedor { get; set; }
+
 
 
 
@@ -30,8 +31,6 @@ namespace InventoryControlSystem.Domain.Models
                 throw new ArgumentException("O estado deve conter exatamente 2 letras maiúsculas, como 'SP' ou 'RJ'.", nameof(estado));
             if (string.IsNullOrWhiteSpace(cep) || !Regex.IsMatch(cep, @"^\d{5}-\d{3}$"))
                 throw new ArgumentException("O CEP deve estar no formato 'XXXXX-XXX'.", nameof(cep));
-            if (string.IsNullOrWhiteSpace(complemento))
-                throw new ArgumentException("O complemento não pode ser nulo ou vazio.", nameof(complemento));
 
             Logradouro = logradouro;
             Numero = numero;

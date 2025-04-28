@@ -4,6 +4,7 @@ using InventoryControlSystem.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryControlSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250428014221_AjusteNaTabelaDeFornecedor")]
+    partial class AjusteNaTabelaDeFornecedor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,7 +115,8 @@ namespace InventoryControlSystem.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EnderecoId");
+                    b.HasIndex("EnderecoId")
+                        .IsUnique();
 
                     b.ToTable("TB_Fornecedores");
                 });
@@ -216,8 +220,8 @@ namespace InventoryControlSystem.Infrastructure.Migrations
             modelBuilder.Entity("InventoryControlSystem.Domain.Models.Fornecedor", b =>
                 {
                     b.HasOne("InventoryControlSystem.Domain.Models.Endereco", "Endereco")
-                        .WithMany()
-                        .HasForeignKey("EnderecoId")
+                        .WithOne("Fornecedor")
+                        .HasForeignKey("InventoryControlSystem.Domain.Models.Fornecedor", "EnderecoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -252,6 +256,12 @@ namespace InventoryControlSystem.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("InventoryControlSystem.Domain.Models.Endereco", b =>
+                {
+                    b.Navigation("Fornecedor")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
