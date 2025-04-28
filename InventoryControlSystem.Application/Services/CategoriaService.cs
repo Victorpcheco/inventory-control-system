@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using InventoryControlSystem.Application.DTOS;
+﻿using InventoryControlSystem.Application.DTOS;
 using InventoryControlSystem.Application.Services.Interfaces;
 using InventoryControlSystem.Domain.Models;
 using InventoryControlSystem.Domain.Repositories.Interfaces;
