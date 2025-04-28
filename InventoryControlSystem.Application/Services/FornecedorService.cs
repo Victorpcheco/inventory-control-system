@@ -50,5 +50,33 @@ namespace InventoryControlSystem.Application.Services
 
             return (fornecedores);
         }
+
+        public async Task UpdateFornecedorAsync(string cpfCnpj, Fornecedor fornecedor)
+        {
+            var fornecedorExiste = await _repository.GetByCpfCnpj(cpfCnpj);
+
+            if (fornecedorExiste == null)
+            {
+                throw new ArgumentException("Fornecedor não encontrado");
+            }
+
+            fornecedorExiste.Nome = fornecedor.Nome;
+            fornecedorExiste.Telefone = fornecedor.Telefone;
+            fornecedorExiste.Email = fornecedor.Email;
+
+            if (fornecedor.Endereco != null)
+            {
+                fornecedorExiste.Endereco.Logradouro = fornecedor.Endereco.Logradouro;
+                fornecedorExiste.Endereco.Numero = fornecedor.Endereco.Numero;
+                fornecedorExiste.Endereco.Bairro = fornecedor.Endereco.Bairro;
+                fornecedorExiste.Endereco.Cidade = fornecedor.Endereco.Cidade;
+                fornecedorExiste.Endereco.Estado = fornecedor.Endereco.Estado;
+                fornecedorExiste.Endereco.Cep = fornecedor.Endereco.Cep;
+                fornecedorExiste.Endereco.Complemento = fornecedor.Endereco.Complemento;
+            }
+
+            await _repository.UpdateAsync(fornecedorExiste);
+
+        }
     }
 }

@@ -7,5 +7,6 @@ namespace InventoryControlSystem.Domain.Repositories.Interfaces
         Task AddAsync(Fornecedor fornecedor);
         Task<Fornecedor> GetByCpfCnpj(string  cpf);
         Task<IEnumerable<Fornecedor>> GetAllAsync();
+        Task UpdateAsync(Fornecedor fornecedor);
     }
 }

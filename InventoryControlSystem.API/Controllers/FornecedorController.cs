@@ -44,5 +44,22 @@ namespace InventoryControlSystem.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPut("{cpfCnpj}")]
+        public async Task<IActionResult> UpdateFornecedor(string cpfCnpj, [FromBody] Fornecedor fornecedor)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                await _service.UpdateFornecedorAsync(cpfCnpj, fornecedor);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

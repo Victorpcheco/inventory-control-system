@@ -22,9 +22,9 @@ namespace InventoryControlSystem.Infrastructure.Repositories
 
         public async Task<Fornecedor> GetByCpfCnpj(string cpf)
         {
-            var fornecedor = await _context.TB_Fornecedores.FirstOrDefaultAsync(f => f.CpfCnpj == cpf);
-            return (fornecedor);
-
+            return await _context.TB_Fornecedores
+                .Include(f => f.Endereco)
+                .FirstOrDefaultAsync(f => f.CpfCnpj == cpf);
         }
 
         public async Task<IEnumerable<Fornecedor>> GetAllAsync()
@@ -35,6 +35,11 @@ namespace InventoryControlSystem.Infrastructure.Repositories
             
         }
 
+        public async Task UpdateAsync(Fornecedor fornecedor)
+        {
+            _context.Update(fornecedor);
+            await _context.SaveChangesAsync();
+        }
 
 
 
