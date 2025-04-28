@@ -12,5 +12,6 @@ namespace InventoryControlSystem.Application.Services.Interfaces
         Task<Fornecedor> AddFornecedorAsync(Fornecedor fornecedor);
         Task<IEnumerable<Fornecedor>> GetAllFornecedoresAsync();
         Task UpdateFornecedorAsync (string cpfCnpj, Fornecedor fornecedor);
+        Task DeleteFornecedorAsync(string cpfCnpj);
     }
 }

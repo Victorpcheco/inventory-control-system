@@ -8,5 +8,6 @@ namespace InventoryControlSystem.Domain.Repositories.Interfaces
         Task<Fornecedor> GetByCpfCnpj(string  cpf);
         Task<IEnumerable<Fornecedor>> GetAllAsync();
         Task UpdateAsync(Fornecedor fornecedor);
+        Task DeleteAsync(Fornecedor fornecedor);
     }
 }

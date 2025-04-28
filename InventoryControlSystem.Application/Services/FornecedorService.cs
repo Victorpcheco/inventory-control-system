@@ -78,5 +78,17 @@ namespace InventoryControlSystem.Application.Services
             await _repository.UpdateAsync(fornecedorExiste);
 
         }
+
+        public async Task DeleteFornecedorAsync(string cpfCnpj)
+        {
+            var fornecedor = await _repository.GetByCpfCnpj(cpfCnpj);
+            
+            if (fornecedor == null)
+            {
+                throw new ArgumentException("Fornecedor não encontrado");
+            }
+
+            await _repository.DeleteAsync(fornecedor);
+        }
     }
 }

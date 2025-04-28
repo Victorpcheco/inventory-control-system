@@ -61,5 +61,19 @@ namespace InventoryControlSystem.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpDelete("{cpfCnpj}")]
+        public async Task<IActionResult> DeleteFornecedor(string cpfCnpj)
+        {
+            try
+            {
+                await _service.DeleteFornecedorAsync(cpfCnpj);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

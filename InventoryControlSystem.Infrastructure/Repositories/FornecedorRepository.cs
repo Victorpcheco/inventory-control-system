@@ -41,6 +41,12 @@ namespace InventoryControlSystem.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(Fornecedor fornecedor)
+        {
+            _context.Remove(fornecedor);
+            await _context.SaveChangesAsync();
+        }
+
 
 
 
