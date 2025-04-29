@@ -12,7 +12,7 @@ namespace InventoryControlSystem.Application.Validators
 
             RuleFor(x => x.Matricula)
                 .NotEmpty().WithMessage("Matrícula é obrigatória.")
-                .MinimumLength(6).WithMessage("Matrícula deve ter no mínimo 6 caracteres.");
+                .Length(6).WithMessage("A matrícula precisa ter 6 caracteres!");
 
             RuleFor(x => x.Senha)
                 .NotEmpty().WithMessage("Senha é obrigatória.")

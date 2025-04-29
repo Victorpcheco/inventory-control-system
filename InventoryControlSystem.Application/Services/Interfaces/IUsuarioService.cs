@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using InventoryControlSystem.Domain.Models;
+﻿using InventoryControlSystem.Domain.Models;
 
 namespace InventoryControlSystem.Application.Services.Interfaces
 {
-    public interface IAuthService
+    public interface IUsuarioService
     {
-
         Task<(string JwtToken, string RefreshToken)> RegisterAsync(Usuario usuario);
         Task<(string JwtToken, string RefreshToken)> LoginAsync(string matricula, string senha); 
         Task DeleteUserAsync(string matricula);

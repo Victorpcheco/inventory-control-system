@@ -5,19 +5,19 @@ using InventoryControlSystem.Application.Jwt;
 
 namespace InventoryControlSystem.Application.Services
 {
-    public class AuthService : IAuthService
+    public class UsuarioService : IUsuarioService
     {
         private readonly IUsuarioRepository _usuarioRepository;
         private readonly TokenService _tokenService;
-        private const int RefreshTokenExpirationDays = 7;
+        private const int RefreshTokenExpirationDays = 1;
 
-        public AuthService(IUsuarioRepository usuarioRepository, TokenService tokenService)
+        public UsuarioService(IUsuarioRepository usuarioRepository, TokenService tokenService)
         {
             _usuarioRepository = usuarioRepository;
             _tokenService = tokenService;
         }
 
-        /// Registra um novo usuário no sistema.
+        // Registra um novo usuário no sistema.
         public async Task<(string JwtToken, string RefreshToken)> RegisterAsync(Usuario usuario)
         {
             await ValidarMatriculaUnicaAsync(usuario.Matricula);
@@ -33,7 +33,7 @@ namespace InventoryControlSystem.Application.Services
             await _usuarioRepository.AddRefreshTokenAsync(new RefreshTokens
             {
                 Token = refreshToken,
-                ExpirationDate = DateTime.UtcNow.AddDays(RefreshTokenExpirationDays),
+                ExpirationDate = DateTime.Now.AddDays(RefreshTokenExpirationDays),
                 UsuarioId = usuario.Id
             });
 
@@ -41,7 +41,7 @@ namespace InventoryControlSystem.Application.Services
         }
 
 
-        /// Realiza o login de um usuário.
+        // Realiza o login de um usuário.
         public async Task<(string JwtToken, string RefreshToken)> LoginAsync(string matricula, string senha)
         {
             var usuario = await _usuarioRepository.GetByMatriculaAsync(matricula);
@@ -64,18 +64,19 @@ namespace InventoryControlSystem.Application.Services
             await _usuarioRepository.AddRefreshTokenAsync(new RefreshTokens
             {
                 Token = refreshToken,
-                ExpirationDate = DateTime.UtcNow.AddDays(RefreshTokenExpirationDays),
+                ExpirationDate = DateTime.Now.AddDays(RefreshTokenExpirationDays),
                 UsuarioId = usuario.Id
             });
             return (jwtToken, refreshToken);
         }
 
+        // Deleta um usuário pelo número da matrícula.
         public async Task DeleteUserAsync(string matricula)
         {
             await _usuarioRepository.deleteUserAsync(matricula);
         }
 
-        /// movido para um método privado para melhorar a legibilidade.
+        // movido para um método privado para melhorar a legibilidade.
         private async Task ValidarMatriculaUnicaAsync(string matricula)
         {
             if (await _usuarioRepository.MatriculaExisteAsync(matricula))

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using InventoryControlSystem.Domain.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -45,8 +41,9 @@ namespace InventoryControlSystem.Application.Jwt
             // cria o token
             var tokenDescriptor = new SecurityTokenDescriptor
             {
+                NotBefore = DateTime.Now,
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(_tokenexpirationMinutes),
+                Expires = DateTime.Now.AddMinutes(_tokenexpirationMinutes),
                 Issuer = _issuer,
                 Audience = _audience,
                 SigningCredentials = credentials

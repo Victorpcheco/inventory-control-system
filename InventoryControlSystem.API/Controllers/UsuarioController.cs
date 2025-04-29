@@ -7,16 +7,16 @@ namespace InventoryControlSystem.API.Controllers
 {
     [ApiController]
     [Route("api/[Controller]")]
-    public class AuthController : ControllerBase
+    public class UsuarioController : ControllerBase
     {
-        private readonly IAuthService _authService;
+        private readonly IUsuarioService _authService;
 
-        public AuthController(IAuthService authService)
+        public UsuarioController(IUsuarioService authService)
         {
             _authService = authService;
         }
 
-        /// Registra um novo usuário no sistema.
+        // Registra um novo usuário no sistema
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequestDto dto)
         {
@@ -25,7 +25,6 @@ namespace InventoryControlSystem.API.Controllers
 
             try
             {
-                // Reutiliza o método de fábrica da model
                 var usuario = Usuario.Criar(dto.Nome, dto.Matricula, dto.Senha);
                 usuario.DefinirTipoUsuario(dto.TipoUsuario);
 
@@ -43,7 +42,7 @@ namespace InventoryControlSystem.API.Controllers
             }
         }
 
-        /// Realiza o login de um usuário.
+        // Realiza o login de um usuário.
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto dto)
         {
@@ -66,7 +65,7 @@ namespace InventoryControlSystem.API.Controllers
             }
         }
 
-        /// Exclui um usuário pelo número de matrícula.
+        // Deleta um usuário pelo número da matrícula.
         [HttpDelete("delete/{matricula}")]
         public async Task<IActionResult> Delete(string matricula)
         {
