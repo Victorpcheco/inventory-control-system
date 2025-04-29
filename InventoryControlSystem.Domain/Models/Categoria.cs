@@ -4,14 +4,13 @@ namespace InventoryControlSystem.Domain.Models
 {
     public class Categoria
     {
-        [Required]
         public int Id { get; set; }
+
         [Required(ErrorMessage = "O nome da categoria é obrigatório!")]
-        public string Nome { get; set; }
-        public string Descricao { get; set; }
+        [StringLength(100, ErrorMessage = "O nome deve ter no máximo 100 caracteres.")]
+        public string Nome { get; set; } = string.Empty;
 
-        //public ICollection<Produto> Produtos { get; set; } // Relação de um para muitos
+        [StringLength(255, ErrorMessage = "A descrição deve ter no máximo 255 caracteres.")]
+        public string? Descricao { get; set; }
     }
-
 }
-

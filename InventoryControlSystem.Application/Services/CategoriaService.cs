@@ -2,13 +2,11 @@
 using InventoryControlSystem.Application.Services.Interfaces;
 using InventoryControlSystem.Domain.Models;
 using InventoryControlSystem.Domain.Repositories.Interfaces;
-using Microsoft.AspNetCore.Identity;
 
 namespace InventoryControlSystem.Application.Services
 {
     public class CategoriaService : ICategoriaService
     {
-
         private readonly ICategoriaRepository _repository;
 
         public CategoriaService(ICategoriaRepository repository)
@@ -16,32 +14,41 @@ namespace InventoryControlSystem.Application.Services
             _repository = repository;
         }
 
-
-        public async Task<IEnumerable<Categoria>> GetAllAsync()
+        // Alterado para retornar IReadOnlyList para garantir imutabilidade da coleção.
+        public async Task<IReadOnlyList<CategoriaRequestDto>> GetAllAsync()
         {
-            return await _repository.GetAllAsync();
+            var categorias = await _repository.GetAllAsync();
+            // Mapeia entidades para DTOs para não expor o domínio.
+            return categorias.Select(c => new CategoriaRequestDto
+            {
+                Nome = c.Nome,
+                Descricao = c.Descricao
+            }).ToList();
         }
 
-
-        public async Task<Categoria> GetCategoriaByNome(string nome)
+        // Retorna DTO e evita chamada duplicada ao repositório.
+        public async Task<CategoriaRequestDto> GetCategoriaByNome(string nome)
         {
-            var categoria = await _repository.GetCategoriaByNome(nome);
+            var categoria = await _repository.GetByNomeAsync(nome);
 
             if (categoria == null)
-                throw new ArgumentException("Categoria não encontrada");
+                throw new KeyNotFoundException("Categoria não encontrada");
 
-            return await _repository.GetCategoriaByNome(nome);
+            return new CategoriaRequestDto
+            {
+                Nome = categoria.Nome,
+                Descricao = categoria.Descricao
+            };
         }
 
         public async Task<CategoriaRequestDto> CreateCategoriaAsync(CategoriaRequestDto dto)
         {
-
-            var categoria = await _repository.GetCategoriaByNome(dto.Nome);
+            var categoria = await _repository.GetByNomeAsync(dto.Nome);
 
             if (categoria != null)
                 throw new ArgumentException("Categoria já cadastrada");
 
-            categoria = new Categoria()
+            categoria = new Categoria
             {
                 Nome = dto.Nome,
                 Descricao = dto.Descricao
@@ -60,7 +67,7 @@ namespace InventoryControlSystem.Application.Services
         {
             var categoria = await _repository.GetByIdAsync(id);
             if (categoria == null)
-                throw new ArgumentException("Categoria não encontrada");
+                throw new KeyNotFoundException("Categoria não encontrada");
 
             categoria.Nome = dto.Nome;
             categoria.Descricao = dto.Descricao;
@@ -70,12 +77,12 @@ namespace InventoryControlSystem.Application.Services
             return true;
         }
 
-        public async Task<bool> DeleteCategoriaAsync(int id) 
+        public async Task<bool> DeleteCategoriaAsync(int id)
         {
             var categoria = await _repository.GetByIdAsync(id);
 
             if (categoria == null)
-                throw new ArgumentException("Categoria não cadastrada");
+                throw new KeyNotFoundException("Categoria não cadastrada");
 
             await _repository.DeleteAsync(id);
             return true;
