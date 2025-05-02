@@ -2,9 +2,6 @@
 using InventoryControlSystem.Application.Services.Interfaces;
 using InventoryControlSystem.Domain.Models;
 using InventoryControlSystem.Domain.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace InventoryControlSystem.Application.Services
 {

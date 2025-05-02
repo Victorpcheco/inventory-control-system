@@ -5,10 +5,10 @@ namespace InventoryControlSystem.Application.Services.Interfaces
 {
     public interface IProdutoService
     {
-        Task<IEnumerable<Produto>> GetProdutosAsync();
-        Task<Produto> GetByIdAsync(int id);
-        Task<Produto> AddProdutoAsync(ProdutoRequestDto dto);
-        Task UpdateProdutoAsync(int id, ProdutoRequestDto dto);
-        Task DeleteProdutoAsync(int id);
+        Task<IReadOnlyList<ProdutoRequestDto>> GetAllProdutosAsync();
+        Task<ProdutoRequestDto> GetProdutoByIdAsync(int id);
+        Task<ProdutoRequestDto> AddProdutoAsync(ProdutoRequestDto dto);
+        Task<ProdutoRequestDto> UpdateProdutoAsync(int id, ProdutoRequestDto dto);
+        Task<bool> DeleteProdutoAsync(int id);
     }
 }

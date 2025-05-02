@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace InventoryControlSystem.Application.DTOS
 {
@@ -20,7 +15,5 @@ namespace InventoryControlSystem.Application.DTOS
         public int CategoriaId { get; set; }
         [Required]
         public int FornecedorId { get; set; }
-
-
     }
 }

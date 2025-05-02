@@ -3,85 +3,97 @@ using InventoryControlSystem.Application.Services.Interfaces;
 using InventoryControlSystem.Domain.Models;
 using InventoryControlSystem.Domain.Repositories.Interfaces;
 
-namespace InventoryControlSystem.Application.Services
+public class ProdutoService : IProdutoService
 {
-    public class ProdutoService : IProdutoService
+    private readonly IProdutoRepository _repository;
+
+    public ProdutoService(IProdutoRepository repository)
     {
+        _repository = repository;
+    }
 
-        private readonly IProdutoRepository _produtoRepository;
+    public async Task<IReadOnlyList<ProdutoRequestDto>> GetAllProdutosAsync()
+    {
+        var produtos = await _repository.GetAllAsync();
 
-        public ProdutoService(IProdutoRepository repository)
+        return produtos.Select(p => new ProdutoRequestDto
         {
-            _produtoRepository = repository;    
-        }
+            Nome = p.Nome,
+            Descricao = p.Descricao,
+            QuantidadeEmEstoque = p.QuantidadeEmEstoque,
+            Preco = p.Preco,
+            CategoriaId = p.CategoriaId,
+            FornecedorId = p.FornecedorId
+        }).ToList();
+    }
 
-        public async Task<IEnumerable<Produto>> GetProdutosAsync()
+    public async Task<ProdutoRequestDto> GetProdutoByIdAsync(int id)
+    {
+        var produto = await _repository.GetByIdAsync(id);
+
+        if (produto == null)
+            throw new ArgumentException("Produto não encontrado");
+
+        return new ProdutoRequestDto
         {
-            return await _produtoRepository.GetAllAsync();
-        }
+            Nome = produto.Nome,
+            Descricao = produto.Descricao,
+            QuantidadeEmEstoque = produto.QuantidadeEmEstoque,
+            Preco = produto.Preco,
+            CategoriaId = produto.CategoriaId,
+            FornecedorId = produto.FornecedorId
+        };
+    }
 
-        public async Task<Produto> GetByIdAsync(int id)
-        {
-            if (id <= 0)
-                throw new ArgumentException("O id do produto não pode ser menor ou igual a 0!");
-            if (id == null)
-                throw new ArgumentNullException("O id do produto não pode ser nulo!");
+    public async Task<ProdutoRequestDto> AddProdutoAsync(ProdutoRequestDto dto)
+    {
+        if (dto == null)
+            throw new ArgumentException("Dados inválidos");
 
-            return await _produtoRepository.GetByIdAsync(id);
-        }
+        var produto = new Produto(
+            dto.Nome,
+            dto.Descricao,
+            dto.QuantidadeEmEstoque,
+            dto.Preco,
+            dto.CategoriaId,
+            dto.FornecedorId
+        );
 
-        public async Task<Produto> AddProdutoAsync(ProdutoRequestDto dto)
-        {
-            if (dto == null)
-                throw new ArgumentNullException("O produto não pode ser nulo!");
+        await _repository.AddAsync(produto);
 
-            var produto = new Produto
-            {
-                Nome = dto.Nome,
-                Descricao = dto.Descricao,
-                QuantidadeEmEstoque = dto.QuantidadeEmEstoque,
-                Preco = dto.Preco,
-                CategoriaId = dto.CategoriaId,
-                FornecedorId = dto.FornecedorId,
-                DataCadastroProduto = DateTime.UtcNow
-            };
+        return dto;
+    }
 
-            await _produtoRepository.AddAsync(produto);
-            return produto;
-        }
+    public async Task<ProdutoRequestDto> UpdateProdutoAsync(int id, ProdutoRequestDto dto)
+    {
+        if (dto == null)
+            throw new ArgumentException("Dados inválidos");
 
-        public async Task UpdateProdutoAsync(int id, ProdutoRequestDto dto)
-        {
-            var produtoExistente = await _produtoRepository.GetByIdAsync(id);
+        var produtoExistente = await _repository.GetByIdAsync(id);
 
-            if (produtoExistente == null)
-                throw new KeyNotFoundException("Produto não encontrado!");
+        if (produtoExistente == null)
+            throw new ArgumentException("Produto não encontrado");
 
-            if (dto == null)
-                throw new ArgumentNullException(nameof(dto), "O produto não pode ser nulo!");
+        produtoExistente.AtualizarNome(dto.Nome);
+        produtoExistente.AtualizarDescricao(dto.Descricao);
+        produtoExistente.AtualizarEstoque(dto.QuantidadeEmEstoque);
+        produtoExistente.AtualizarPreco(dto.Preco);
+        produtoExistente.AtualizarCategoria(dto.CategoriaId);
+        produtoExistente.AtualizarFornecedor(dto.FornecedorId);
 
-            produtoExistente.Nome = dto.Nome ?? produtoExistente.Nome;
-            produtoExistente.Descricao = dto.Descricao ?? produtoExistente.Descricao;
-            produtoExistente.QuantidadeEmEstoque = dto.QuantidadeEmEstoque > 0 ? dto.QuantidadeEmEstoque : produtoExistente.QuantidadeEmEstoque;
-            produtoExistente.Preco = dto.Preco > 0 ? dto.Preco : produtoExistente.Preco;
-            produtoExistente.CategoriaId = dto.CategoriaId > 0 ? dto.CategoriaId : produtoExistente.CategoriaId;
-            produtoExistente.FornecedorId = dto.FornecedorId > 0 ? dto.FornecedorId : produtoExistente.FornecedorId;
+        await _repository.UpdateAsync(produtoExistente);
 
-            await _produtoRepository.UpdateAsync(produtoExistente);
-        }
+        return dto;
+    }
 
-        public async Task DeleteProdutoAsync(int id)
-        {
-            var produtoExistente = await _produtoRepository.GetByIdAsync(id);
-            if (produtoExistente == null)
-                throw new KeyNotFoundException("Produto não encontrado!");
-            await _produtoRepository.DeleteAsync(produtoExistente);
-        }
+    public async Task<bool> DeleteProdutoAsync(int id)
+    {
+        var produto = await _repository.GetByIdAsync(id);
 
+        if (produto == null)
+            throw new ArgumentException("Produto não encontrado");
 
-
-
-
-
+        await _repository.DeleteAsync(produto);
+        return true;
     }
 }
