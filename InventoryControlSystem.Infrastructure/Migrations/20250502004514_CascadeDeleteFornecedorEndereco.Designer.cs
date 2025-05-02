@@ -4,6 +4,7 @@ using InventoryControlSystem.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryControlSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250502004514_CascadeDeleteFornecedorEndereco")]
+    partial class CascadeDeleteFornecedorEndereco
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +50,10 @@ namespace InventoryControlSystem.Infrastructure.Migrations
             modelBuilder.Entity("InventoryControlSystem.Domain.Models.Endereco", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Bairro")
                         .IsRequired()
@@ -109,6 +115,9 @@ namespace InventoryControlSystem.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EnderecoId")
+                        .IsUnique();
 
                     b.ToTable("TB_Fornecedores");
                 });
@@ -209,13 +218,15 @@ namespace InventoryControlSystem.Infrastructure.Migrations
                     b.ToTable("TB_Usuarios");
                 });
 
-            modelBuilder.Entity("InventoryControlSystem.Domain.Models.Endereco", b =>
+            modelBuilder.Entity("InventoryControlSystem.Domain.Models.Fornecedor", b =>
                 {
-                    b.HasOne("InventoryControlSystem.Domain.Models.Fornecedor", null)
-                        .WithOne("Endereco")
-                        .HasForeignKey("InventoryControlSystem.Domain.Models.Endereco", "Id")
+                    b.HasOne("InventoryControlSystem.Domain.Models.Endereco", "Endereco")
+                        .WithOne()
+                        .HasForeignKey("InventoryControlSystem.Domain.Models.Fornecedor", "EnderecoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Endereco");
                 });
 
             modelBuilder.Entity("InventoryControlSystem.Domain.Models.Produto", b =>
@@ -246,12 +257,6 @@ namespace InventoryControlSystem.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("InventoryControlSystem.Domain.Models.Fornecedor", b =>
-                {
-                    b.Navigation("Endereco")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

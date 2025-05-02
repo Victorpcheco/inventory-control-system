@@ -44,7 +44,6 @@ namespace InventoryControlSystem.API.Controllers
             }
             catch (KeyNotFoundException ex)
             {
-                // Exceção mais específica
                 return NotFound(ex.Message);
             }
             catch (ArgumentException ex)

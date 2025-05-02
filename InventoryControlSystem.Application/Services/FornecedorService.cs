@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using InventoryControlSystem.Application.DTOS;
 using InventoryControlSystem.Application.Services.Interfaces;
 using InventoryControlSystem.Domain.Models;
 using InventoryControlSystem.Domain.Repositories.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace InventoryControlSystem.Application.Services
 {
     public class FornecedorService : IFornecedorService
     {
-
         private readonly IFornecedorRepository _repository;
 
         public FornecedorService(IFornecedorRepository repository)
@@ -19,76 +17,99 @@ namespace InventoryControlSystem.Application.Services
             _repository = repository;
         }
 
-        public async Task<Fornecedor> AddFornecedorAsync(Fornecedor fornecedor)
-        {
-            if (fornecedor == null)
-            {
-                throw new ArgumentNullException("Dados inválidos");
-            }
-
-            var fornecedorExiste = await _repository.GetByCpfCnpj(fornecedor.CpfCnpj);
-
-            if (fornecedorExiste == null)
-            {
-                await _repository.AddAsync(fornecedor);
-                return (fornecedor);
-            }
-            else
-            {
-                throw new ArgumentNullException("Fornecedor já está cadastrado no sistema!");
-            }
-        }
-
-        public async Task<IEnumerable<Fornecedor>> GetAllFornecedoresAsync()
+        public async Task<IReadOnlyList<FornecedorRequestDto>> GetAllFornecedoresAsync()
         {
             var fornecedores = await _repository.GetAllAsync();
 
-            if (fornecedores == null)
+            return fornecedores.Select(c => new FornecedorRequestDto
             {
-                throw new ArgumentNullException("Nenhum fornecedor encontrado");
-            }
+                Nome = c.Nome,
+                CpfCnpj = c.CpfCnpj,
+                Telefone = c.Telefone,
+                Email = c.Email,
+                Endereco = c.Endereco
 
-            return (fornecedores);
+            }).ToList();
         }
 
-        public async Task UpdateFornecedorAsync(string cpfCnpj, Fornecedor fornecedor)
+        public async Task<FornecedorRequestDto> GetFornecedorByCpfCnpjAsync(string cpfCnpj)
         {
-            var fornecedorExiste = await _repository.GetByCpfCnpj(cpfCnpj);
+            var fornecedorExiste = await _repository.GetByCpfCnpjAsync(cpfCnpj);
 
             if (fornecedorExiste == null)
-            {
                 throw new ArgumentException("Fornecedor não encontrado");
+
+            return new FornecedorRequestDto
+            {
+                Nome = fornecedorExiste.Nome,
+                CpfCnpj = fornecedorExiste.CpfCnpj,
+                Telefone = fornecedorExiste.Telefone,
+                Email = fornecedorExiste.Email,
+                Endereco = fornecedorExiste.Endereco
+            };
+        }
+
+        public async Task<FornecedorRequestDto> AddFornecedorAsync(FornecedorRequestDto fornecedorDto)
+        {
+            if (fornecedorDto == null)
+                throw new ArgumentException("Dados inválidos");
+
+            var fornecedorExiste = await _repository.GetByCpfCnpjAsync(fornecedorDto.CpfCnpj);
+
+            if (fornecedorExiste != null)
+                throw new ArgumentException("Fornecedor já está cadastrado no sistema!");
+
+            var fornecedor = new Fornecedor(
+                fornecedorDto.Nome,
+                fornecedorDto.CpfCnpj,
+                fornecedorDto.Email,
+                fornecedorDto.Telefone
+            );
+
+            if (fornecedorDto.Endereco != null)
+            {
+                fornecedor.AtualizarEndereco(fornecedorDto.Endereco);
             }
 
-            fornecedorExiste.Nome = fornecedor.Nome;
-            fornecedorExiste.Telefone = fornecedor.Telefone;
-            fornecedorExiste.Email = fornecedor.Email;
+            await _repository.AddAsync(fornecedor);
 
-            if (fornecedor.Endereco != null)
+            return fornecedorDto;
+        }
+
+        public async Task<FornecedorRequestDto> UpdateFornecedorAsync(string cpfCnpj, FornecedorRequestDto fornecedorDto)
+        {
+            if (fornecedorDto == null)
+                throw new ArgumentException("Dados inválidos");
+
+            var fornecedorExiste = await _repository.GetByCpfCnpjAsync(cpfCnpj);
+
+            if (fornecedorExiste == null)
+                throw new ArgumentException("Fornecedor não encontrado");
+
+            fornecedorExiste.AtualizarNome(fornecedorDto.Nome);
+            fornecedorExiste.AtualizarTelefone(fornecedorDto.Telefone);
+            fornecedorExiste.AtualizarEmail(fornecedorDto.Email);
+            fornecedorExiste.AtualizarCpfCnpj(fornecedorDto.CpfCnpj);
+
+            if (fornecedorDto.Endereco != null)
             {
-                fornecedorExiste.Endereco.Logradouro = fornecedor.Endereco.Logradouro;
-                fornecedorExiste.Endereco.Numero = fornecedor.Endereco.Numero;
-                fornecedorExiste.Endereco.Bairro = fornecedor.Endereco.Bairro;
-                fornecedorExiste.Endereco.Cidade = fornecedor.Endereco.Cidade;
-                fornecedorExiste.Endereco.Estado = fornecedor.Endereco.Estado;
-                fornecedorExiste.Endereco.Cep = fornecedor.Endereco.Cep;
-                fornecedorExiste.Endereco.Complemento = fornecedor.Endereco.Complemento;
+                fornecedorExiste.AtualizarEndereco(fornecedorDto.Endereco);
             }
 
             await _repository.UpdateAsync(fornecedorExiste);
 
+            return fornecedorDto;
         }
 
-        public async Task DeleteFornecedorAsync(string cpfCnpj)
+        public async Task<bool> DeleteFornecedorAsync(string cpfCnpj)
         {
-            var fornecedor = await _repository.GetByCpfCnpj(cpfCnpj);
-            
+            var fornecedor = await _repository.GetByCpfCnpjAsync(cpfCnpj);
+
             if (fornecedor == null)
-            {
                 throw new ArgumentException("Fornecedor não encontrado");
-            }
 
             await _repository.DeleteAsync(fornecedor);
+            return true;
         }
     }
 }

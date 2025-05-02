@@ -14,44 +14,46 @@ namespace InventoryControlSystem.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task AddAsync (Fornecedor fornecedor)
-        {
-            await _context.AddAsync(fornecedor);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<Fornecedor> GetByCpfCnpj(string cpf)
+        public async Task<IReadOnlyList<Fornecedor>> GetAllAsync()
         {
             return await _context.TB_Fornecedores
-                .Include(f => f.Endereco)
-                .FirstOrDefaultAsync(f => f.CpfCnpj == cpf);
-        }
-
-        public async Task<IEnumerable<Fornecedor>> GetAllAsync()
-        {
-            return await _context.TB_Fornecedores
+                .AsNoTracking()
                 .Include(f => f.Endereco)
                 .ToListAsync();
-            
+        }
+
+        public async Task<Fornecedor?> GetByCpfCnpjAsync(string cpfCnpj)
+        {
+            return await _context.TB_Fornecedores
+                .AsNoTracking()
+                .Include(f => f.Endereco)
+                .FirstOrDefaultAsync(f => f.CpfCnpj == cpfCnpj);
+        }
+
+        public async Task AddAsync(Fornecedor fornecedor)
+        {
+            if (fornecedor == null) throw new ArgumentNullException(nameof(fornecedor));
+            await _context.TB_Fornecedores.AddAsync(fornecedor);
+            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(Fornecedor fornecedor)
         {
-            _context.Update(fornecedor);
+            if (fornecedor == null) throw new ArgumentNullException(nameof(fornecedor));
+            _context.TB_Fornecedores.Update(fornecedor);
             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(Fornecedor fornecedor)
         {
-            _context.Remove(fornecedor);
+            if (fornecedor == null) throw new ArgumentNullException(nameof(fornecedor));
+            _context.TB_Fornecedores.Remove(fornecedor);
             await _context.SaveChangesAsync();
         }
 
-
-
-
-
-
-
+        public async Task<bool> ExistsAsync(string cpfCnpj)
+        {
+            return await _context.TB_Fornecedores.AnyAsync(f => f.CpfCnpj == cpfCnpj);
+        }
     }
 }

@@ -17,6 +17,15 @@ namespace InventoryControlSystem.Infrastructure.Data
         public DbSet<Usuario> TB_Usuarios { get; set; }
         public DbSet<RefreshTokens> TB_RefreshTokens { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Fornecedor>()
+                .HasOne(f => f.Endereco)
+                .WithOne() // ou .WithMany() 
+                .HasForeignKey<Fornecedor>(f => f.EnderecoId)
+                .OnDelete(DeleteBehavior.Cascade); // delete em cascata
 
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
