@@ -1,10 +1,12 @@
 ﻿using InventoryControlSystem.Application.DTOS;
 using InventoryControlSystem.Application.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryControlSystem.API.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/[Controller]")]
     public class CategoriaController : ControllerBase
     {

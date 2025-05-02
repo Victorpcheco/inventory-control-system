@@ -1,5 +1,6 @@
 ﻿using InventoryControlSystem.Application.DTOS;
 using InventoryControlSystem.Application.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryControlSystem.API.Controllers
@@ -16,6 +17,7 @@ namespace InventoryControlSystem.API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IReadOnlyList<ProdutoRequestDto>>> GetAllProdutosAsync()
         {
             try
@@ -33,6 +35,7 @@ namespace InventoryControlSystem.API.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [Authorize]
         public async Task<ActionResult<ProdutoRequestDto>> GetProdutoById(int id)
         {
             try
@@ -57,6 +60,7 @@ namespace InventoryControlSystem.API.Controllers
         }
 
         [HttpPost("create")]
+        [Authorize]
         public async Task<ActionResult<ProdutoRequestDto>> CreateProduto([FromBody] ProdutoRequestDto produtoDto)
         {
             try
@@ -78,6 +82,7 @@ namespace InventoryControlSystem.API.Controllers
         }
 
         [HttpPut("update/{id:int}")]
+        [Authorize]
         public async Task<ActionResult> UpdateProduto(int id, [FromBody] ProdutoRequestDto produtoDto)
         {
             try
@@ -103,6 +108,7 @@ namespace InventoryControlSystem.API.Controllers
         }
 
         [HttpDelete("delete/{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProduto(int id)
         {
             try

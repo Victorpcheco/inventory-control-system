@@ -1,6 +1,7 @@
 ﻿using InventoryControlSystem.Application.DTOS;
 using InventoryControlSystem.Application.Services.Interfaces;
 using InventoryControlSystem.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryControlSystem.API.Controllers
@@ -18,6 +19,7 @@ namespace InventoryControlSystem.API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IReadOnlyList<FornecedorRequestDto>>> GetAllFornecedoresAsync()
         {
             try
@@ -35,6 +37,7 @@ namespace InventoryControlSystem.API.Controllers
         }
 
         [HttpGet("{cpfCnpj}")]
+        [Authorize]
         public async Task<ActionResult<FornecedorRequestDto>> GetFornecedorcpfCnpj(string cpfCnpj)
         {
             try
@@ -59,6 +62,7 @@ namespace InventoryControlSystem.API.Controllers
         }
 
         [HttpPost("create")]
+        [Authorize]
         public async Task<ActionResult<FornecedorRequestDto>> CreateFornecedor([FromBody] FornecedorRequestDto fornecedorDto)
         {
             try
@@ -81,6 +85,7 @@ namespace InventoryControlSystem.API.Controllers
         }
 
         [HttpPut("update/{cpfCnpj}")]
+        [Authorize]
         public async Task<ActionResult> UpdateFornecedor(string cpfCnpj, [FromBody] FornecedorRequestDto fornecedordto)
         {
             try
@@ -109,6 +114,7 @@ namespace InventoryControlSystem.API.Controllers
         }
 
         [HttpDelete("delete/{cpfCnpj}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteFornecedor(string cpfCnpj)
         {
 
